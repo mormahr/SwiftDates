@@ -11,81 +11,81 @@ import Foundation
 /// Not meant to replace `offset(_: Calendar.Component, _: Int)` to offset dates
 public extension Date {
     /// Returns number of seconds per second
-    public static let secondInterval: TimeInterval = 1
+    static let secondInterval: TimeInterval = 1
     /// Returns number of seconds per minute
-    public static let minuteInterval: TimeInterval = 60
+    static let minuteInterval: TimeInterval = 60
     /// Returns number of seconds per hour
-    public static let hourInterval: TimeInterval = 3600
+    static let hourInterval: TimeInterval = 3600
     /// Returns number of seconds per 24-hour day
-    public static let dayInterval: TimeInterval = 86400
+    static let dayInterval: TimeInterval = 86400
     /// Returns number of seconds per standard week
-    public static let weekInterval: TimeInterval = 604800
+    static let weekInterval: TimeInterval = 604800
 }
 
 /// Standard interval reference
 /// Not meant to replace `offset(_: Calendar.Component, _: Int)` to offset dates
 public extension Int {
     /// Returns number of seconds in n seconds
-    public var secondInterval: TimeInterval { return TimeInterval(self) * Date.secondInterval }
+    var secondInterval: TimeInterval { return TimeInterval(self) * Date.secondInterval }
     /// Returns number of seconds in n minutes
-    public var minuteInterval: TimeInterval { return TimeInterval(self) * Date.minuteInterval }
+    var minuteInterval: TimeInterval { return TimeInterval(self) * Date.minuteInterval }
     /// Returns number of seconds in n hours
-    public var hourInterval: TimeInterval { return TimeInterval(self) * Date.hourInterval }
+    var hourInterval: TimeInterval { return TimeInterval(self) * Date.hourInterval }
     /// Returns number of seconds in n 24-hour days
-    public var dayInterval: TimeInterval { return TimeInterval(self) * Date.dayInterval }
+    var dayInterval: TimeInterval { return TimeInterval(self) * Date.dayInterval }
     /// Returns number of seconds in n standard weeks
-    public var weekInterval: TimeInterval { return TimeInterval(self) * Date.weekInterval }
+    var weekInterval: TimeInterval { return TimeInterval(self) * Date.weekInterval }
 }
 
 /// Utility for component math
 public extension Int {
     /// Returns n-second date component
-    public var seconds: DateComponents {
+    var seconds: DateComponents {
         return DateComponents(second: self)
     }
     /// Returns n-minute date component
-    public var minutes: DateComponents {
+    var minutes: DateComponents {
         return DateComponents(minute: self)
     }
     /// Returns n-hour date component
-    public var hours: DateComponents {
+    var hours: DateComponents {
         return DateComponents(hour: self)
     }
     /// Returns n-day date component
-    public var days: DateComponents {
+    var days: DateComponents {
         return DateComponents(day: self)
     }
     /// Returns n-week date component
-    public var weeks: DateComponents {
+    var weeks: DateComponents {
         return DateComponents(day: self * 7)
     }
     /// Returns n-fortnight date component
-    public var fortnights: DateComponents {
+    var fortnights: DateComponents {
         return DateComponents(day: self * 14)
     }
     /// Returns n-month date component
-    public var months: DateComponents {
+    var months: DateComponents {
         return DateComponents(month: self)
     }
     /// Returns n-year date component
-    public var years: DateComponents {
+    var years: DateComponents {
         return DateComponents(year: self)
     }
     /// Returns n-decade date component
-    public var decades: DateComponents {
+    var decades: DateComponents {
         return DateComponents(year: self * 10)
     }
 }
 
 /// Calendar component offsets
-extension Date {
+public extension Date {
     /// Performs calendar math using date components as alternative
     /// to `offset(_: Calendar.Component, _: Int)`
     /// e.g.
     /// ```swift
     /// print((Date() + DateComponents.days(3) + DateComponents.hours(1)).fullString)
     /// ```
-    public static func +(lhs: Date, rhs: DateComponents) -> Date {
+    static func +(lhs: Date, rhs: DateComponents) -> Date {
         return Date.sharedCalendar.date(byAdding: rhs, to: lhs)! // yes force unwrap. sue me.
     }
     
@@ -95,7 +95,7 @@ extension Date {
     /// ```swift
     /// print((Date() - DateComponents.days(3) + DateComponents.hours(1)).fullString)
     /// ```
-    public static func -(lhs: Date, rhs: DateComponents) -> Date {
+    static func -(lhs: Date, rhs: DateComponents) -> Date {
         let year = rhs.year ?? 0
         let month = rhs.month ?? 0
         let day = rhs.day ?? 0
@@ -112,7 +112,7 @@ extension Date {
 extension DateComponents {
     
     /// Add two date components together
-    public static func + (lhs: DateComponents, rhs: DateComponents) -> DateComponents {
+    static func + (lhs: DateComponents, rhs: DateComponents) -> DateComponents {
         var copy = DateComponents()
         for component in lhs.members.union(rhs.members) {
             var sum = 0
@@ -130,7 +130,7 @@ extension DateComponents {
     }
     
     /// Subtract date components
-    public static func - (lhs: DateComponents, rhs: DateComponents) -> DateComponents {
+    static func - (lhs: DateComponents, rhs: DateComponents) -> DateComponents {
         var copy = DateComponents()
         for component in lhs.members.union(rhs.members) {
             var result = 0
@@ -148,8 +148,8 @@ extension DateComponents {
     }
 }
 
-extension Date {
-    public static func - (lhs: Date, rhs: Date) -> DateComponents {
+public extension Date {
+    static func - (lhs: Date, rhs: Date) -> DateComponents {
         return Date.sharedCalendar.dateComponents(commonComponents, from: rhs, to: lhs)
     }
 }

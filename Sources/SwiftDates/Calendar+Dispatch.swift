@@ -4,7 +4,7 @@ import Foundation
 // dependencies other than Foundation
 
 
-extension DispatchTimeInterval {
+public extension DispatchTimeInterval {
     /// Returns a dispatch time interval in nanoseconds from a
     /// `Double` number of seconds
     ///
@@ -13,13 +13,13 @@ extension DispatchTimeInterval {
     /// ```
     ///
     /// - Reference: http://ericasadun.com/2017/05/23/5-easy-dispatch-tricks/
-    public static func seconds(_ amount: Double) -> DispatchTimeInterval {
+    static func seconds(_ amount: Double) -> DispatchTimeInterval {
         let delay = Double(NSEC_PER_SEC) * amount
         return DispatchTimeInterval.nanoseconds(Int(delay))
     }
 }
 
-extension DispatchTime {
+public extension DispatchTime {
     /// Returns a dispatch time offset by `duration` seconds from `now`
     ///
     /// ```
@@ -27,14 +27,14 @@ extension DispatchTime {
     /// ```
     ///
     /// - Reference: http://ericasadun.com/2017/05/23/5-easy-dispatch-tricks/
-    public static func secondsFromNow(_ duration: Double) -> DispatchTime {
+    static func secondsFromNow(_ duration: Double) -> DispatchTime {
         return DispatchTime.now() + duration
     }
 }
 
-extension DateComponents {
+public extension DateComponents {
     /// Returns a DispatchTime that's been component offset from now
-    public var dispatchTime: DispatchTime? {
+    var dispatchTime: DispatchTime? {
         guard let offsetDate = Calendar.autoupdatingCurrent.date(byAdding: self, to: Date()) else { return nil }
         let seconds = offsetDate.timeIntervalSinceNow
         return DispatchTime.now() + seconds
