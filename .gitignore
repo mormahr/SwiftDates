@@ -82,3 +82,5 @@ fastlane/test_output
 iOSInjectionProject/
 
 .swiftpm/xcode
+
+SwiftDates.xcodeproj
