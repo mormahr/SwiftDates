@@ -6,6 +6,6 @@ import Foundation
 public extension Date {
     /// Is date inclusive between two dates
     func isBetween(start: Date, end: Date) -> Bool {
-        return self => start && self <= end
+        return self >= start && self <= end
     }
 }
